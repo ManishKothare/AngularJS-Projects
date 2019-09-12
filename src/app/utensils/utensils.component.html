@@ -1,0 +1,64 @@
+<!--   Icon Section   -->
+<div class="row">
+  <div class="col s12 m4 l4" *ngFor="let utensil of utensils">
+    <div class="card">
+      <div class="card-image">
+        <img src="{{ utensil.picture }}" />
+      </div>
+      <div class="card-content">
+        <p class="card-title">{{ utensil.name }}</p>
+        <hr />
+        <p>SKU: {{ utensil.sku }}</p>
+        <p>
+          Price:
+          <span [ngStyle]="{ 'font-size.px': 20 }">{{
+            utensil.price | currency: "INR"
+          }}</span>
+        </p>
+
+        <!--<p>In Stock: <span *ngIf="utensil.stock <= 10" [ngStyle]="{'color':'red'}">{{utensil.stock}}</span></p>-->
+        <ng-template [ngIf]="utensil.stock > 0" [ngIfElse]="outOfStock">
+          <p>In Stock: {{ utensil.stock }}</p>
+          <p>
+            Quantity:
+            <select>
+              <option
+                id="qtySelect"
+                *ngFor="let qty of quantity"
+                value="{{ qty }}"
+                >{{ qty }}</option
+              >
+            </select>
+          </p>
+          <p>
+            Material:
+            <select>
+              <option
+                id="matSelect"
+                *ngFor="let mat of material"
+                value="{{ mat }}"
+                >{{ mat }}</option
+              >
+            </select>
+          </p>
+        </ng-template>
+
+        <ng-template #outOfStock>
+          <p>
+            <span [ngStyle]="{ color: 'red' }">Currently unavailable.</span>
+          </p>
+        </ng-template>
+      </div>
+      <div class="card-action">
+        <ng-template [ngIf]="utensil.stock > 0" [ngIfElse]="cartButton">
+          <a class="waves-effect waves-light btn-small">
+            Add to Cart
+          </a>
+        </ng-template>
+        <ng-template #cartButton>
+          <a class="waves-effect waves-light btn-small">Add to Wishlist</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

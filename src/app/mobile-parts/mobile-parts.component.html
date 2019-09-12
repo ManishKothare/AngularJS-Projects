@@ -1,0 +1,88 @@
+<!--   Icon Section   -->
+<div class="row">
+  <div class="col s12 m4 l4" *ngFor="let mobile of mobiles">
+    <div class="card">
+      <div class="card-image">
+        <img [src]="mobile.picture" [alt]="testing" />
+      </div>
+      <div class="card-content">
+        <p class="card-title">
+          <span [ngStyle]="{ 'font-size.px': 25, 'font-weight': 'bold' }">{{
+            mobile.name
+          }}</span>
+        </p>
+        <hr />
+        <p>
+          SKU:
+          <span [ngStyle]="{ color: 'green' }">{{ mobile.sku }}</span>
+        </p>
+        <p>
+          Price:
+          <span [ngStyle]="{ 'font-size.px': 20, color: 'blue' }">{{
+            mobile.price | currency: "INR"
+          }}</span>
+        </p>
+        <p class="country">
+          Country:
+          <span *ngIf="mobile.country === 'UK'">
+            <img
+              src="https://www.countries-ofthe-world.com/flags-normal/flag-of-United-Kingdom.png"
+              alt="UK"
+            />
+          </span>
+          <span *ngIf="mobile.country === 'IND'">
+            <img
+              src="https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png"
+              alt="India"
+            />
+          </span>
+          <span *ngIf="mobile.country === 'USA'">
+            <img
+              src="https://www.countries-ofthe-world.com/flags-normal/flag-of-United-States-of-America.png"
+              alt="USA"
+            />
+          </span>
+        </p>
+        <!--<p>In Stock: <span *ngIf="mobile.stock <= 10" [ngStyle]="{'color':'red'}">{{mobile.stock}}</span></p>-->
+        <ng-template [ngIf]="mobile.stock > 0" [ngIfElse]="outOfStock">
+          <p>In Stock: {{ mobile.stock }}</p>
+          <p>
+            Quantity:
+            <select (change)="changeQuantity(event)">
+              <option
+                id="qtySelect"
+                *ngFor="let qty of quantity"
+                value="{{ qty }}"
+                >{{ qty }}</option
+              >
+            </select>
+          </p>
+        </ng-template>
+
+        <ng-template #outOfStock>
+          <p>
+            <span [ngStyle]="{ color: 'red' }">Currently unavailable.</span>
+          </p>
+        </ng-template>
+      </div>
+      <div class="card-action">
+        <ng-template [ngIf]="mobile.stock > 0" [ngIfElse]="cartButton">
+          <a
+            id="demo1"
+            class="waves-effect waves-light btn-small"
+            (click)="myClickFunction1(event)"
+            >Add to Cart</a
+          >
+        </ng-template>
+        <ng-template #cartButton>
+          <a
+            id="demo2"
+            class="waves-effect waves-light btn-small"
+            (click)="myClickFunction2(event)"
+            >Add to Wishlist</a
+          >
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

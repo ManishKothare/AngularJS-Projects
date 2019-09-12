@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+.products {
+  text-align: center;
+}
+.country img {
+  width: 25px;
+  vertical-align: middle;
+}
+/*.card {
+  height: 625px;
+}*/
+select {
+  display: inline-block;
+  width: 60%;
+}
+.card .card-image img {
+  width: 70%;
+  margin: 0 auto;
+  padding: 10px;
+}
